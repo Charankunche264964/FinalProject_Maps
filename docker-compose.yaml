@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  map:
+    build:
+      context: ./FRONTEND_CODE
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3000"
+
+  search:
+    build:
+      context: ./autocomplete
+      dockerfile: dockerfile
+    ports:
+      - "8089:8089"
+
+  tiles:
+    build:
+      context: ./map-server
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/data:/data
+      - ./data/config:/config
+    ports:
+      - "8080:8080"
+
+volumes:
+  external: 
+    external: true
